@@ -12,6 +12,10 @@ import { UsersService } from './services/users.service';
 import { AddCategoryComponent } from './admin/add-category/add-category.component';
 import { CategoryService } from './services/category.service';
 import { ShowCategoryComponent } from './admin/show-category/show-category.component';
+import { HomeComponent } from './pages/home/home.component';
+import { FooterComponent } from './shares/footer/footer.component';
+import { NavbarComponent } from './shares/navbar/navbar.component';
+import { HeaderComponent } from './shares/header/header.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +23,11 @@ import { ShowCategoryComponent } from './admin/show-category/show-category.compo
     RegisterComponent,
     LoginComponent,
     AddCategoryComponent,
-    ShowCategoryComponent
+    ShowCategoryComponent,
+    HomeComponent,
+    FooterComponent,
+    NavbarComponent,
+    HeaderComponent
   ],
   
   imports: [

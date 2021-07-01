@@ -7,15 +7,15 @@ import { Users } from '../interfaces/users';
   providedIn: 'root'
 })
 export class UsersService {
-
+  private commonURL = `http://localhost:3000/user/`
   constructor(private _http: HttpClient) {}
 
   userRegister (userData: Users):Observable<any> {
-    return this._http.post('http://localhost:3000/user/register', userData)
+    return this._http.post(`${this.commonURL}register`, userData)
   }
 
   userLogin (userData: Users):Observable<any> {
-    return this._http.post('http://localhost:3000/user/login', userData)
+    return this._http.post(`${this.commonURL}login`, userData)
   }
 
 }

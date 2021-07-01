@@ -11,7 +11,7 @@ import { CategoryService } from 'src/app/services/category.service';
 export class AddCategoryComponent implements OnInit {
 
   // Variables
-  result: any  = {}
+  private result: any  = {}
   msgCheck: String = ''
   isSubmited: boolean = false
 
