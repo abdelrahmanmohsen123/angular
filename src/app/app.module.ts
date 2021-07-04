@@ -19,6 +19,7 @@ import { HeaderComponent } from './shares/header/header.component';
 import { UserInterceptor } from './interceptor/user.interceptor';
 import { AddItemsComponent } from './admin/add-items/add-items.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,9 +43,11 @@ import { AddItemsComponent } from './admin/add-items/add-items.component';
   ],
 
   providers: [
-   { provide: HTTP_INTERCEPTORS,
-    useClass: UserInterceptor,
-    multi:true},
+    { 
+      provide: HTTP_INTERCEPTORS,
+      useClass: UserInterceptor,
+      multi:true
+    },
     UsersService,
     CategoryService
   ],

@@ -1,5 +1,5 @@
 export interface Items {
-    cat_id: String
+    cat_id: any
     name: String
     description: String
     itemImage: String

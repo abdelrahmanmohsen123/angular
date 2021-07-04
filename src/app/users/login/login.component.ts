@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
             this.userData.reset()
             this.isSubmited = false 
             let token = this.result.userData.token
-            localStorage.setItem('token','bearer ' + token)
+            localStorage.setItem('token', token)
 
             let typeUser = this.result.userData.user.userType
             

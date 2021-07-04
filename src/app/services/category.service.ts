@@ -1,5 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Category } from '../interfaces/category';
+import { Items } from '../interfaces/items';
 
 @Injectable({
   providedIn: 'root'
@@ -10,15 +13,17 @@ export class CategoryService {
 
   commonURL = 'http://localhost:3000/cat/'
 
-  addCatsForm(data: any) {
+  addCatsForm(data: Category): Observable<any> {
     return this._http.post(`${this.commonURL}addCats`, data)
   }
 
-  displayAllCats() {
+  displayAllCats(): Observable<any> {
     return this._http.get(`${this.commonURL}displayCats`)
   }
-  addItemsForm(data: any) {
-    return this._http.post(`${this.commonURL}addItems`, data)
+
+  // Add item to category
+  addItemsForm(data: Items): Observable<any> {
+    return this._http.post(`${this.commonURL}addItem`, data)
   }
 
 }
