@@ -17,6 +17,8 @@ export class CategoryService {
   displayAllCats() {
     return this._http.get(`${this.commonURL}displayCats`)
   }
-
+  addItemsForm(data: any) {
+    return this._http.post(`${this.commonURL}addItems`, data)
+  }
 
 }

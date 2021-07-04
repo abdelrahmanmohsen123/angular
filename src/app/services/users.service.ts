@@ -11,7 +11,7 @@ export class UsersService {
   constructor(private _http: HttpClient) {}
 
   userRegister (userData: Users):Observable<any> {
-    return this._http.post(`${this.commonURL}register`, userData)
+    return this._http.post(`${this.commonURL}register`, userData)   
   }
 
   userLogin (userData: Users):Observable<any> {

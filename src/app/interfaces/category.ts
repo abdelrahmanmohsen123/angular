@@ -1,3 +1,4 @@
 export interface Category {
-    catName: String
+    catName: String,
 }
+

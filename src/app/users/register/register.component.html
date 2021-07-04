@@ -1,17 +1,14 @@
-
-
-
 <section class="my-2">
     <div class="container">
-        <div class = "row">
+        <div class="row">
             <h3 class="">Register</h3>
             <div>{{msgCheck}}</div>
             <!-- {{userData | json}} -->
-            <form class="my-2 py-2" [formGroup]="userData" (ngSubmit)="userRegisterForm()" >
+            <form class="my-2 py-2" [formGroup]="userData" (ngSubmit)="userRegisterForm()">
                 <div class="row">
                     <div class="col-6 mb-3">
                         <label for="fname" class="form-label">First name :</label>
-                        <input type="text"  formControlName='fname' class="form-control" id="fname" />
+                        <input type="text" formControlName='fname' class="form-control" id="fname" />
                         <div *ngIf="isSubmited || (fname?.invalid && (fname?.dirty || fname?.touched))">
                             <ul>
                                 <li *ngIf="fname?.errors?.required">
@@ -25,13 +22,13 @@
                                 </li>
                                 <li *ngIf="fname?.errors?.maxlength">
                                     Please write 20 or less
-                                </li>  
+                                </li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-6 mb-3">
                         <label for="lname" class="form-label">Last name :</label>
-                        <input type="text"  formControlName='lname' class="form-control" id="lname" />
+                        <input type="text" formControlName='lname' class="form-control" id="lname" />
                         <div *ngIf="isSubmited || (lname?.invalid && (lname?.dirty || lname?.touched))">
                             <ul>
                                 <li *ngIf="lname?.errors?.required">
@@ -45,14 +42,14 @@
                                 </li>
                                 <li *ngIf="lname?.errors?.maxlength">
                                     Please write 20 or less
-                                </li>  
+                                </li>
                             </ul>
                         </div>
                     </div>
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">Email :</label>
-                    <input type="text"  formControlName='email' class="form-control" id="email" />
+                    <input type="text" formControlName='email' class="form-control" id="email" />
                     <div *ngIf="isSubmited || (email?.invalid && (email?.dirty || email?.touched))">
                         <ul>
                             <li *ngIf="email?.errors?.required">
@@ -60,13 +57,13 @@
                             </li>
                             <li *ngIf="email?.errors?.email">
                                 Please valid email
-                            </li> 
+                            </li>
                         </ul>
                     </div>
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Password :</label>
-                    <input type="text"  formControlName='password' class="form-control" id="password" />
+                    <input type="text" formControlName='password' class="form-control" id="password" />
                     <div *ngIf="isSubmited || (password?.invalid && (password?.dirty || password?.touched))">
                         <ul>
                             <li *ngIf="password?.errors?.required">
@@ -77,13 +74,13 @@
                             </li>
                             <li *ngIf="password?.errors?.maxlength">
                                 Please write 20 or less
-                            </li>  
+                            </li>
                         </ul>
                     </div>
                 </div>
                 <div class="mb-3">
                     <label for="phone" class="form-label">Phone :</label>
-                    <input type="text"  formControlName='phone' class="form-control" id="phone" />
+                    <input type="text" formControlName='phone' class="form-control" id="phone" />
                     <div *ngIf="isSubmited || (phone?.invalid && (phone?.dirty || phone?.touched))">
                         <ul>
                             <li *ngIf="phone?.errors?.required">
@@ -98,10 +95,13 @@
                         </ul>
                     </div>
                 </div>
-                
+                <div class="input-group mb-3">
+                    <input type="file" class="form-control" id="uploadFile">
+                    <!-- <label class="input-group-text" for="uploadFile">Upload</label> -->
+                </div>
+
                 <button type="submit" class="btn btn-primary">Register</button>
             </form>
         </div>
     </div>
 </section>
-

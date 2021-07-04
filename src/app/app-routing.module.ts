@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AddCategoryComponent } from './admin/add-category/add-category.component';
+import { AddItemsComponent } from './admin/add-items/add-items.component';
 import { ShowCategoryComponent } from './admin/show-category/show-category.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './users/login/login.component';
@@ -11,8 +12,8 @@ const routes: Routes = [
   {path: 'users/login', component: LoginComponent},
   {path: 'users/register', component: RegisterComponent},
   {path: 'category/addCat', component: AddCategoryComponent},
-  {path: 'category/displayCats', component: ShowCategoryComponent}
-  
+  {path: 'category/displayCats', component: ShowCategoryComponent},
+  {path: 'category/addItems', component: AddItemsComponent}
 ];
 
 @NgModule({

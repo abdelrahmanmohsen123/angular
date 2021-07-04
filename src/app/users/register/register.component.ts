@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Users } from 'src/app/interfaces/users';
 import { UsersService } from 'src/app/services/users.service';
 
@@ -28,19 +29,31 @@ export class RegisterComponent implements OnInit {
     // address: new FormGroup({
     //   gov: new FormControl
     // }) 
-    userImage: new FormControl(''),
+    // userImage: new FormControl(''),
     accountStatus: new FormControl(false),
     activateCode: new FormControl(''),
+    
   }) 
 
-  constructor(private _userService: UsersService) { }
+  constructor(private _userService: UsersService , private _router:Router) { }
 
   ngOnInit(): void {}
 
+  // file:any
+  // handleUpload(event){
+  //   this.file = event.target.files
+  //   console.log(event.target.files)
+  // }
+
   userRegisterForm(){
+    // const userIamge = new FormData()
+    // userIamge.append('userIamge', this.file[0])
+
     let userInfo: Users = this.userData.value
     this.isSubmited = true
+
     if (this.userData.valid) {
+      
       this._userService.userRegister(userInfo).subscribe(
         res => {
           this.result = res
@@ -48,6 +61,7 @@ export class RegisterComponent implements OnInit {
     
         () => {
           this.msgCheck = `Error`
+          
         },
 
         () => {
@@ -55,10 +69,12 @@ export class RegisterComponent implements OnInit {
             this.msgCheck= "done"
             this.userData.reset()
             this.isSubmited = false 
+            this._router.navigate(['/users/login'])
           } 
 
           else {
             this.msgCheck = "error" 
+            
           }
         
         }
