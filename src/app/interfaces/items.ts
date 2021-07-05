@@ -11,7 +11,6 @@ export interface Items {
     ] 
     DateFrom: Date
     DateTo: Date
-    price: Number
     offer_item:[
         {
             is_offer: Boolean

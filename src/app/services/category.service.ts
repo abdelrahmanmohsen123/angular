@@ -26,4 +26,8 @@ export class CategoryService {
     return this._http.post(`${this.commonURL}addItem`, data)
   }
 
+  showAllItems(): Observable<any>{
+    return this._http.get(`${this.commonURL}showAllItems`)
+  }
+
 }

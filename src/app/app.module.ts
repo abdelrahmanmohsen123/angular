@@ -18,6 +18,7 @@ import { NavbarComponent } from './shares/navbar/navbar.component';
 import { HeaderComponent } from './shares/header/header.component';
 import { UserInterceptor } from './interceptor/user.interceptor';
 import { AddItemsComponent } from './admin/add-items/add-items.component';
+import { ShowItemsComponent } from './admin/show-items/show-items.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { AddItemsComponent } from './admin/add-items/add-items.component';
     FooterComponent,
     NavbarComponent,
     HeaderComponent,
-    AddItemsComponent
+    AddItemsComponent,
+    ShowItemsComponent
   ],
   
   imports: [
