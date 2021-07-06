@@ -19,6 +19,8 @@ import { HeaderComponent } from './shares/header/header.component';
 import { UserInterceptor } from './interceptor/user.interceptor';
 import { AddItemsComponent } from './admin/add-items/add-items.component';
 import { ShowItemsComponent } from './admin/show-items/show-items.component';
+import { ShowSingleItemComponent } from './admin/show-single-item/show-single-item.component';
+// import { ActivatedRoute } from '@angular/router';
 
 
 @NgModule({
@@ -33,7 +35,8 @@ import { ShowItemsComponent } from './admin/show-items/show-items.component';
     NavbarComponent,
     HeaderComponent,
     AddItemsComponent,
-    ShowItemsComponent
+    ShowItemsComponent,
+    ShowSingleItemComponent
   ],
   
   imports: [

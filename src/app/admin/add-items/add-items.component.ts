@@ -17,20 +17,20 @@ export class AddItemsComponent implements OnInit {
   result: any = {}
 
   size: any = [
-    {name: "none", val: 'none'},
-    {name: "large", val: 'large'},
-    {name: "meduim", val: 'meduim'},
-    {name: "small", val: 'small'}
+    {sizeType: "none", val: 'none'},
+    {sizeType: "large", val: 'large'},
+    {sizeType: "meduim", val: 'meduim'},
+    {sizeType: "small", val: 'small'}
   ] 
 
   itemData = new FormGroup({ 
     cat_id: new FormControl('',[Validators.required]),
-    name: new FormControl('',[Validators.required , Validators.minLength(3) , Validators.maxLength(20)]),
-    description: new FormControl('',[Validators.maxLength(200)]),
-
+    name: new FormControl('',[Validators.required , Validators.minLength(3) , Validators.maxLength(20), Validators.pattern("^[a-zA-Z ]*")]),
+    description: new FormControl('', [Validators.maxLength(200)]),
+    itemImage: new FormControl(),
     size: new FormGroup({
-      name: new FormControl('', [Validators.required]),
-      price: new FormControl('', [Validators.required,Validators.pattern("^[0-9]+$")])
+      sizeType: new FormControl('', [Validators.required]),
+      price: new FormControl('', [Validators.required, Validators.pattern("^[0-9]+$")])
     }),
 
     DateFrom: new FormControl(''),
@@ -46,6 +46,8 @@ export class AddItemsComponent implements OnInit {
   constructor(private _catService: CategoryService) { 
     this.catNames()
     //this.offerItemsStatus()
+    
+   
   }
 
   ngOnInit(): void {
@@ -54,26 +56,32 @@ export class AddItemsComponent implements OnInit {
   addItem() {
     let itemInfo : Items = this.itemData.value
     this.isSubmited = true
-    this._catService.addItemsForm(itemInfo).subscribe( res => {
-      this.result = res
-      // console.log(res)
-    }),
-    () => {
-
-    }
-    () => {
-      if(this.result?.itemData != "") { 
-        this.msgCheck= "done"
-        this.itemData.reset()
-        this.isSubmited = false 
+   
+    if(this.itemData.valid) {
+      this._catService.addItemsForm(itemInfo).subscribe( 
+        res => {
+        this.result = res
         
-      } 
-
-      else {
-        this.msgCheck = "error" 
-        
-      }
+      },
+      
+        () => { },
+        () => {
+          if(this.result?.itemData != "") { 
+            this.msgCheck= "done"
+            this.itemData.reset()
+            this.isSubmited = false 
+            
+          } 
+  
+          else {
+            this.msgCheck = "error" 
+            
+          }
+        }
+      )
+      
     }
+    
   }
 
   catNames() {
@@ -83,6 +91,24 @@ export class AddItemsComponent implements OnInit {
       // console.log(this.category.success.success[0].catName)
     })
   }
+
+  // explan
+  selectSize(event : any) {
+    
+    this.size.setValue(event.target.value, {
+      onlySelf: true,
+      
+    })
+    
+  }
+
+  
+
+  // changeCity(e) {
+  //   this.cityName.setValue(e.target.value, {
+  //     onlySelf: true
+  //   })
+  // }
   // offerItemsStatus() {
   //   this._catService.showAllItems().subscribe(res => {
   //     //console.log(res.success)
@@ -111,11 +137,26 @@ export class AddItemsComponent implements OnInit {
   get DateTo() {
     return this.itemData.get('DateTo')
   }
+
   get sizeItem() {
     return this.itemData.get('size')
   }
+
+  get sizeType() {
+    return this.itemData.get('sizeType')
+  }
+
+  get price() {
+    return this.itemData.get('price')
+  }
+
+
   get offer_item() {
     return this.itemData.get('offer_item')
+  }
+
+  get itemImage () {
+    return this.itemData.get('itemImage')
   }
   
   

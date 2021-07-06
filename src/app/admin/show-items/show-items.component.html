@@ -1,1 +1,61 @@
-{{allItems | json}}
+<section class="my-3">
+    <div class="container">
+        <div class="table">
+            <thead>
+                <th>cat name</th>
+                <th>item name</th>
+                <th>description</th>
+                <th>size || price</th>
+                <th>Date</th>
+                <th>
+                    <tr>Offers</tr>
+                    <tr>
+                        <th>status |</th>
+                        <th>Price |</th>
+                        <th>description</th>  
+                    </tr>
+                </th>
+                <th>itemImage</th>
+                <th>Actions</th>
+            </thead>
+            <tbody >
+                <tr *ngFor="let item of allItems">
+                    <td>
+                        <tr *ngFor="let cN of _catService.globalVar">
+                            <td *ngIf="item.cat_id == cN._id">{{cN.catName}}</td>
+                        </tr>
+                    </td>
+                    <td>{{item.name}}</td> 
+                    <td>{{item.description}}</td>
+                    <td>
+                        <tr *ngFor="let s of item.size">
+                            <td>{{s.sizeType}}</td>
+                            <td>{{s.price}}</td>
+                        </tr>
+                    </td>
+                    <td>
+                        <tr>
+                            <td>{{item.DateFrom | date: 'fullDate'}} || </td>
+                            <td>{{item.DateTo | date: 'fullDate'}}</td>
+                        </tr>
+                    </td>
+                    <td>
+                        <tr *ngFor="let offer of item.offer_item">
+                            <td>{{offer.is_offer}}</td>
+                            <td>{{offer.newPrice}}</td>
+                            <td>{{offer.desc}}</td>
+                        </tr>
+                    </td>
+                    <td>
+                        <img [src]="item.itemImage" width="200" height="200" alt="" />
+                    </td>
+                    <td>
+                        <button class="btn btn-primary"><a class="text-white" routerLink="/category/showSingleItem/{{item._id}}">Show</a> </button>
+                        <!-- <button class="btn btn-success"><a linkRouter="">Edit</a> </button>
+                        <button class="btn btn-danger"><a linkRouter="">Delete</a> </button> -->
+                    </td>
+                </tr>
+            </tbody>
+        </div>
+    </div>
+</section>

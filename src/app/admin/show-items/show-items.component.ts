@@ -9,8 +9,9 @@ import { CategoryService } from 'src/app/services/category.service';
 })
 export class ShowItemsComponent implements OnInit {
   allItems: any = []
-  constructor(private _catService: CategoryService) { 
+  constructor(public _catService: CategoryService) { 
     this.getAllItems()
+    this.getCatName()
   }
 
   ngOnInit(): void {
@@ -21,6 +22,15 @@ export class ShowItemsComponent implements OnInit {
       this.allItems = res.success
       //console.log(this.allItems[0].offer_item[0].is_offer)
     })
+  }
+
+  getCatName() {
+    this._catService.displayAllCats().subscribe(
+      res => {
+        // this.allCats = res /// why ???? res.cats not working
+        this._catService.globalVar = res.success
+      }
+    )
   }
 
 }

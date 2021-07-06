@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CategoryService } from 'src/app/services/category.service';
+// import { ShowItemsComponent } from '../show-items/show-items.component';
 
 @Component({
   selector: 'app-show-category',
@@ -10,7 +11,10 @@ export class ShowCategoryComponent implements OnInit {
 
   allCats: any = []
 
-  constructor(private _catService: CategoryService) { 
+  // @ViewChild(ShowItemsComponent, {static: true}) child?:ShowItemsComponent
+
+
+  constructor(public _catService: CategoryService) { 
     this.getAllCats()
   }
 
@@ -21,6 +25,7 @@ export class ShowCategoryComponent implements OnInit {
     this._catService.displayAllCats().subscribe(
       res => {
         this.allCats = res /// why ???? res.cats not working
+        // this._catService.globalVar = res.success
       }
     )
   }

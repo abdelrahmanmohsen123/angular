@@ -3,8 +3,8 @@
         <div class="row">
             <h3 class="">Add Item</h3>
 
-            {{msgCheck}}
-            <form class="my-2 py-2" [formGroup]="itemData" (ngSubmit)='addItem()' autocomplete="off">
+            <div></div>{{msgCheck}}
+            <form class="my-2 py-2" method="POST" [formGroup]="itemData" (ngSubmit)='addItem()' autocomplete="off" enctype="multipart/form-data">
                 <div class="mb-3">
                     <label for="cat_id" class="form-label">Category name :</label>
                     <select formControlName='cat_id' class="form-control" id="cat_id">
@@ -15,24 +15,66 @@
                 <div class="mb-3">
                     <label for="itemName" class="form-label">Item Name :</label>
                     <input type="text" formControlName='name' class="form-control" id="itemName" />
+                    <div *ngIf="isSubmited || (name?.invalid && (name?.dirty || name?.touched))">
+                        <ul>
+                            <li *ngIf="name?.errors?.required">
+                                Please fill this field
+                            </li>
+                            <li *ngIf="name?.errors?.pattern">
+                                Plese used char only
+                            </li>
+                            <li *ngIf="name?.errors?.minlength">
+                                Please write 3 or more
+                            </li>
+                            <li *ngIf="name?.errors?.maxlength">
+                                Please write 20 or less
+                            </li>
+                        </ul>
+                    </div>
                 </div>
 
                 <div class="mb-3">
                     <label for="description" class="form-label">Description :</label>
                     <textarea formControlName='description' class="form-control" id="description"></textarea>
-
+                    <div *ngIf="isSubmited || (description?.invalid && (description?.dirty || description?.touched))">
+                        <ul>
+                            <li *ngIf="description?.errors?.maxlength">
+                                Please write 200 or less
+                            </li>
+                        </ul>
+                    </div>
                 </div>
 
                 <div class="row" formGroupName="size">
                     <div class="col-6">
+                        
                         <label for="size" class="form-label">size :</label>
-                        <select formControlName='name' class="form-control" id="size">
-                            <option  *ngFor="let s of size" [value]="s.val ">{{s.name}}</option>
+                        
+                        <select formControlName='sizeType' class="form-control" id="size" >
+                            <option  *ngFor="let s of size" [value]="s.val " (change)= "selectSize($event)">{{s.sizeType}}</option>
                         </select>
+                        <div *ngIf="isSubmited || (sizeType?.invalid && (sizeType?.dirty || sizeType?.touched))">
+                            <ul>
+                                <li *ngIf="sizeType?.errors?.required">
+                                    Please fill this field
+                                </li>
+                            </ul>
+                        </div>
+                        
                     </div>
                     <div class="col-6">
                         <label for="price" class="form-label">price :</label>
                         <input type="text" formControlName='price' class="form-control" id="price" />
+                        <div *ngIf="isSubmited || (price?.invalid && (price?.dirty || price?.touched))">
+                            <ul>
+                                <li *ngIf="price?.errors?.required">
+                                    Please fill this field
+                                </li>
+                                <li *ngIf="price?.errors?.pattern">
+                                    Plese used number only
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
 
@@ -66,7 +108,7 @@
                 </div>
 
                 <div class="input-group mb-3">
-                    <input type="file" class="form-control" id="uploadFile">
+                    <input type="file" formControlName='itemImage' class="form-control" id="uploadFile">
                     <label class="input-group-text" for="uploadFile">Upload</label>
                 </div>
 

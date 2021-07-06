@@ -5,10 +5,10 @@ export interface Items {
     itemImage: String
     size:[
         {
-            name: String
+            sizeType: String
             price: Number
         }
-    ] 
+    ],
     DateFrom: Date
     DateTo: Date
     offer_item:[

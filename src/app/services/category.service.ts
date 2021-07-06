@@ -9,6 +9,8 @@ import { Items } from '../interfaces/items';
 })
 export class CategoryService {
 
+  public globalVar: any  = []
+
   constructor(private _http: HttpClient) { }
 
   commonURL = 'http://localhost:3000/cat/'
@@ -26,8 +28,12 @@ export class CategoryService {
     return this._http.post(`${this.commonURL}addItem`, data)
   }
 
-  showAllItems(): Observable<any>{
+  showAllItems(): Observable<any> {
     return this._http.get(`${this.commonURL}showAllItems`)
+  }
+
+  showSingleItem(id: any): Observable<any> {
+    return this._http.get(`${this.commonURL}showItem/${id}`)
   }
 
 }
