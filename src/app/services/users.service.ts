@@ -10,8 +10,8 @@ export class UsersService {
   private commonURL = `http://localhost:3000/user/`
   constructor(private _http: HttpClient) {}
 
-  userRegister (userData: Users):Observable<any> {
-    return this._http.post(`${this.commonURL}register`, userData)   
+  userRegister (userData: Users , formData:any):Observable<any> {
+    return this._http.post(`${this.commonURL}register`, userData , formData)   
   }
 
   userLogin (userData: Users):Observable<any> {

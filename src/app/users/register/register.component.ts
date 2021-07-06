@@ -29,7 +29,7 @@ export class RegisterComponent implements OnInit {
     // address: new FormGroup({
     //   gov: new FormControl
     // }) 
-    // userImage: new FormControl(''),
+    userImage: new FormControl(''),
     accountStatus: new FormControl(false),
     activateCode: new FormControl(''),
     
@@ -39,22 +39,22 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  // file:any
-  // handleUpload(event){
-  //   this.file = event.target.files
-  //   console.log(event.target.files)
-  // }
+  
+  uploadImage(event:any){
+    let file = event.target.file[0]
+    this.userData.get('userImage')?.setValue(file)
+  }
 
   userRegisterForm(){
-    // const userIamge = new FormData()
-    // userIamge.append('userIamge', this.file[0])
+    let userIamge = new FormData()
+    userIamge.append('userImage', this.userData.get('userImage')?.value)
 
     let userInfo: Users = this.userData.value
     this.isSubmited = true
 
     if (this.userData.valid) {
       
-      this._userService.userRegister(userInfo).subscribe(
+      this._userService.userRegister(userInfo, userIamge).subscribe(
         res => {
           this.result = res
         },
