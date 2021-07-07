@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Category } from 'src/app/interfaces/category';
 import { CategoryService } from 'src/app/services/category.service';
 
@@ -17,17 +17,20 @@ export class EditCategoryComponent implements OnInit {
   isSubmited: boolean = false
   id = this.router.snapshot.paramMap.get('id')
 
+
   catData = new FormGroup({ 
     catName: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]), 
   })
 
 
-  constructor(public _catService: CategoryService, private router: ActivatedRoute) { 
+  constructor(public _catService: CategoryService, private router: ActivatedRoute, private _router: Router) { 
     this.getOldCatName()
   }
 
   ngOnInit(): void {
   }
+
+  
 
   getOldCatName() {
     // let id = this.router.snapshot.paramMap.get('id')
@@ -60,6 +63,7 @@ export class EditCategoryComponent implements OnInit {
             this.msgCheck= "done"
             this.catData.reset()
             this.isSubmited = false 
+            this._router.navigate(['/category/displayCats'])
           } 
 
           else {

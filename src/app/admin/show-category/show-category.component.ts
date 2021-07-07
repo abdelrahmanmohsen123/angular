@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CategoryService } from 'src/app/services/category.service';
 // import { ShowItemsComponent } from '../show-items/show-items.component';
 
@@ -11,11 +11,12 @@ import { CategoryService } from 'src/app/services/category.service';
 export class ShowCategoryComponent implements OnInit {
 
   allCats: any = []
+  id = this.router.snapshot.paramMap.get('id')
 
   // @ViewChild(ShowItemsComponent, {static: true}) child?:ShowItemsComponent
 
 
-  constructor(public _catService: CategoryService) { 
+  constructor(public _catService: CategoryService ,private router: ActivatedRoute, private _router: Router) { 
     this.getAllCats()
   }
 
@@ -31,5 +32,16 @@ export class ShowCategoryComponent implements OnInit {
     )
   }
 
+  deleteCat(){
+    this._catService.delCats(this.id).subscribe(
+      res =>{
+        console.log(this.id)
+      },
+      () =>{},
+      () =>{
+        this._router.navigate(['/category/addCat'])
+      }
+      )
+   }
 
 }

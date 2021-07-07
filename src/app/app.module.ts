@@ -21,6 +21,7 @@ import { AddItemsComponent } from './admin/add-items/add-items.component';
 import { ShowItemsComponent } from './admin/show-items/show-items.component';
 import { ShowSingleItemComponent } from './admin/show-single-item/show-single-item.component';
 import { EditCategoryComponent } from './admin/edit-category/edit-category.component';
+import { ShowSingleCatComponent } from './admin/show-single-cat/show-single-cat.component';
 // import { ActivatedRoute } from '@angular/router';
 
 
@@ -38,7 +39,8 @@ import { EditCategoryComponent } from './admin/edit-category/edit-category.compo
     AddItemsComponent,
     ShowItemsComponent,
     ShowSingleItemComponent,
-    EditCategoryComponent
+    EditCategoryComponent,
+    ShowSingleCatComponent
   ],
   
   imports: [

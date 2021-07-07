@@ -23,8 +23,16 @@ export class CategoryService {
     return this._http.get(`${this.commonURL}displayCats`)
   }
 
+  displaySingleCat(id: any): Observable<any> {
+    return this._http.get(`${this.commonURL}showCat/${id}`)
+  }
+
   editCats(id: any, data: any): Observable<any> {
     return this._http.patch(`${this.commonURL}editCats/${id}`, data)
+  }
+
+  delCats(id: any): Observable<any> {
+    return this._http.delete(`${this.commonURL}deleteCat/${id}`)
   }
 
   // Add item to category
@@ -39,5 +47,7 @@ export class CategoryService {
   showSingleItem(id: any): Observable<any> {
     return this._http.get(`${this.commonURL}showItem/${id}`)
   }
+
+
 
 }
