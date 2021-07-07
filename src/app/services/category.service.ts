@@ -10,7 +10,6 @@ import { Items } from '../interfaces/items';
 export class CategoryService {
 
   public globalVar: any  = []
-  public globalId: any = ''
 
   constructor(private _http: HttpClient) { }
 
