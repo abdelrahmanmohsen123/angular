@@ -15,6 +15,7 @@ export class EditCategoryComponent implements OnInit {
   allCtas: any = []
   msgCheck: string = ''
   isSubmited: boolean = false
+  id = this.router.snapshot.paramMap.get('id')
 
   catData = new FormGroup({ 
     catName: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]), 
@@ -29,23 +30,23 @@ export class EditCategoryComponent implements OnInit {
   }
 
   getOldCatName() {
-    let id = this.router.snapshot.paramMap.get('id')
+    // let id = this.router.snapshot.paramMap.get('id')
     this._catService.displayAllCats().subscribe(
       res => {
         this._catService.globalVar = res.success
         this._catService.globalVar.forEach((ele: any) => {
-          if (id == ele._id) this.catData.get('catName')?.setValue(`${ele.catName}`)
+          if (this.id == ele._id) this.catData.get('catName')?.setValue(`${ele.catName}`)
         })
       }
     )
   }
 
   editFormCats() {
-    let id = this.router.snapshot.paramMap.get('id')
+    // let id = this.router.snapshot.paramMap.get('id')
     let catInfo: Category = this.catData.value
     this.isSubmited = true
     if (this.catData.valid) {
-      this._catService.editCats(id, catInfo).subscribe(
+      this._catService.editCats(this.id, catInfo).subscribe(
         res => {
           this.result = res
         },

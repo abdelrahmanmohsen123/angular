@@ -17,6 +17,7 @@ const routes: Routes = [
   {path: 'category/addCat', component: AddCategoryComponent},
   {path: 'category/displayCats', component: ShowCategoryComponent},
   {path: 'category/editCats/:id', component: EditCategoryComponent},
+  {path: 'category/delCats/:id', component: ShowCategoryComponent},
   {path: 'category/addItems', component: AddItemsComponent},
   {path: 'category/showAllItems', component: ShowItemsComponent},
   {path: 'category/showSingleItem/:id', component: ShowSingleItemComponent}
