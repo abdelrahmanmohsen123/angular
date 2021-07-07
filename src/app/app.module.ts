@@ -20,6 +20,7 @@ import { UserInterceptor } from './interceptor/user.interceptor';
 import { AddItemsComponent } from './admin/add-items/add-items.component';
 import { ShowItemsComponent } from './admin/show-items/show-items.component';
 import { ShowSingleItemComponent } from './admin/show-single-item/show-single-item.component';
+import { EditCategoryComponent } from './admin/edit-category/edit-category.component';
 // import { ActivatedRoute } from '@angular/router';
 
 
@@ -36,7 +37,8 @@ import { ShowSingleItemComponent } from './admin/show-single-item/show-single-it
     HeaderComponent,
     AddItemsComponent,
     ShowItemsComponent,
-    ShowSingleItemComponent
+    ShowSingleItemComponent,
+    EditCategoryComponent
   ],
   
   imports: [

@@ -1,6 +1,25 @@
-<div>
-    <ul *ngFor="let cat of allCats.success">
-        <li>{{cat.catName}}</li>
-    </ul>
-</div>
+
+<section class="my-3">
+    <div class="container">
+        <h5>All Category</h5>
+        <table class="table table-striped table-hover my-1">
+            <thead>
+                <th>#</th>
+                <th>Category name</th>
+                <th>Operation</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let cat of allCats.success let i = index">
+                    <td>{{i + 1}}</td>
+                    <td>{{cat.catName}}</td>
+                    <td class="btn-group">
+                        <a routerLink="" class="btn btn-primary">Show</a>
+                        <a routerLink="/category/editCats/{{cat._id}}" class="btn btn-success">Edit</a>
+                        <a routerLink="" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
 

@@ -108,7 +108,7 @@
                 </div>
 
                 <div class="input-group mb-3">
-                    <input type="file" formControlName='itemImage' class="form-control" id="uploadFile">
+                    <input type="file"  class="form-control" id="uploadFile" (change) = "uploadImage($event)">
                     <label class="input-group-text" for="uploadFile">Upload</label>
                 </div>
 

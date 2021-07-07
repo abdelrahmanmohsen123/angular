@@ -53,8 +53,30 @@ export class AddItemsComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  uploadImage(event : any) {
+    let file = event.target.files[0]
+    this.itemData.get('itemImage')?.setValue(file)
+  } 
+
   addItem() {
-    let itemInfo : Items = this.itemData.value
+    // let itemInfo : Items = this.itemData.value
+    let itemInfo = new FormData()
+    itemInfo.append('cat_id', this.itemData.get('cat_id')?.value)
+    itemInfo.append('name', this.itemData.get('name')?.value)
+    itemInfo.append('description', this.itemData.get('description')?.value)
+    itemInfo.append('DateFrom', this.itemData.get('DateFrom')?.value)
+    itemInfo.append('DateTo', this.itemData.get('DateTo')?.value)
+
+    // itemInfo.append('size', this.itemData.get('sizeType')?.value)
+
+    // itemInfo.append('size[0].price', this.itemData.get('price')?.value)
+
+    // console.log(this.itemData.get('size.price')?.value)
+    // itemInfo.append('sizeType', this.itemData.get('sizeType')?.value)
+    // itemInfo.append('sizeType', this.itemData.get('sizeType')?.value)
+    // itemInfo.append('sizeType', this.itemData.get('sizeType')?.value)
+
+    itemInfo.append('itemImage', this.itemData.get('itemImage')?.value)
     this.isSubmited = true
    
     if(this.itemData.valid) {

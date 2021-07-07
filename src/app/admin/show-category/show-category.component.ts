@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { CategoryService } from 'src/app/services/category.service';
 // import { ShowItemsComponent } from '../show-items/show-items.component';
 

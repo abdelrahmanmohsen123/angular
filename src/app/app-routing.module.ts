@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AddCategoryComponent } from './admin/add-category/add-category.component';
 import { AddItemsComponent } from './admin/add-items/add-items.component';
+import { EditCategoryComponent } from './admin/edit-category/edit-category.component';
 import { ShowCategoryComponent } from './admin/show-category/show-category.component';
 import { ShowItemsComponent } from './admin/show-items/show-items.component';
 import { ShowSingleItemComponent } from './admin/show-single-item/show-single-item.component';
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path: 'users/register', component: RegisterComponent},
   {path: 'category/addCat', component: AddCategoryComponent},
   {path: 'category/displayCats', component: ShowCategoryComponent},
+  {path: 'category/editCats/:id', component: EditCategoryComponent},
   {path: 'category/addItems', component: AddItemsComponent},
   {path: 'category/showAllItems', component: ShowItemsComponent},
   {path: 'category/showSingleItem/:id', component: ShowSingleItemComponent}

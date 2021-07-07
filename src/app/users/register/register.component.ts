@@ -16,7 +16,7 @@ export class RegisterComponent implements OnInit {
   result: any  = {} // = {} ? = []?! // to inserted data as object
   msgCheck: String = ''
   isSubmited: boolean = false
-
+  // file: File = null
 
   userData = new FormGroup({ 
     // How to work min and max ???!!! 
@@ -41,20 +41,26 @@ export class RegisterComponent implements OnInit {
 
   
   uploadImage(event:any){
-    let file = event.target.file[0]
+    let file = event.target.files[0]
     this.userData.get('userImage')?.setValue(file)
   }
 
   userRegisterForm(){
-    let userIamge = new FormData()
-    userIamge.append('userImage', this.userData.get('userImage')?.value)
+    let formData = new FormData()
+    formData.append('fname', this.userData.get('fname')?.value)
+    formData.append('lname', this.userData.get('lname')?.value)
+    formData.append('email', this.userData.get('email')?.value)
+    formData.append('password', this.userData.get('password')?.value)
+    formData.append('phone', this.userData.get('phone')?.value)
+    formData.append('userImage', this.userData.get('userImage')?.value)
 
-    let userInfo: Users = this.userData.value
+    // let userInfo: Users = this.userData.value
+
     this.isSubmited = true
 
     if (this.userData.valid) {
       
-      this._userService.userRegister(userInfo, userIamge).subscribe(
+      this._userService.userRegister(formData).subscribe(
         res => {
           this.result = res
         },

@@ -10,6 +10,7 @@ import { Items } from '../interfaces/items';
 export class CategoryService {
 
   public globalVar: any  = []
+  public globalId: any = ''
 
   constructor(private _http: HttpClient) { }
 
@@ -23,8 +24,12 @@ export class CategoryService {
     return this._http.get(`${this.commonURL}displayCats`)
   }
 
+  editCats(id: any, data: any): Observable<any> {
+    return this._http.patch(`${this.commonURL}editCats/${id}`, data)
+  }
+
   // Add item to category
-  addItemsForm(data: Items): Observable<any> {
+  addItemsForm(data: FormData): Observable<any> {
     return this._http.post(`${this.commonURL}addItem`, data)
   }
 
