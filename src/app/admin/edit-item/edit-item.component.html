@@ -1,14 +1,18 @@
+<div>
+    {{_catService.globalVar | json}}
+</div>
+
 <section class="my-3">
     <div class="container">
         <div class="row">
-            <h3 class="">Add Item</h3>
+            <h3 class="">Edit Item</h3>
 
-            <div></div>{{msgCheck}}
-            <form class="my-2 py-2" method="POST" [formGroup]="itemData" (ngSubmit)='addItem()' autocomplete="off" enctype="multipart/form-data">
+            <div>{{msgCheck}}</div>
+            <form class="my-2 py-2" method="POST" [formGroup]="itemData" (ngSubmit)='editItem()' autocomplete="off" enctype="multipart/form-data">
                 <div class="mb-3">
                     <label for="cat_id" class="form-label">Category name :</label>
                     <select formControlName='cat_id' class="form-control" id="cat_id">
-                        <!-- <option selected>Select cats</option> -->
+                        <!-- <option value="" disabled>Select cats</option>  -->
                         <option *ngFor="let cat of category" [value]="cat._id">{{cat.catName}}</option>
                     </select>
                 </div>
@@ -51,7 +55,7 @@
                         <label for="size" class="form-label">size :</label>
                         
                         <select formControlName='sizeType' class="form-control" id="size" >
-                            <option  *ngFor="let s of size" [value]="s.val " (change)= "selectSize($event)">{{s.sizeType}}</option>
+                            <option  *ngFor="let s of size" [value]="s.val" (change)= "selectSize($event)">{{s.sizeType}}</option>
                         </select>
                         <div *ngIf="isSubmited || (sizeType?.invalid && (sizeType?.dirty || sizeType?.touched))">
                             <ul>

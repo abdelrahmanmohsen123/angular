@@ -15,6 +15,8 @@ export class CategoryService {
 
   commonURL = 'http://localhost:3000/cat/'
 
+
+  // Operation category
   addCatsForm(data: Category): Observable<any> {
     return this._http.post(`${this.commonURL}addCats`, data)
   }
@@ -35,7 +37,7 @@ export class CategoryService {
     return this._http.delete(`${this.commonURL}deleteCat/${id}`)
   }
 
-  // Add item to category
+  // Operation items into category
   addItemsForm(data: FormData): Observable<any> {
     return this._http.post(`${this.commonURL}addItem`, data)
   }
@@ -48,6 +50,8 @@ export class CategoryService {
     return this._http.get(`${this.commonURL}showItem/${id}`)
   }
 
-
-
+  editItem(id: any, data: any): Observable<any> {
+    return this._http.patch(`${this.commonURL}editItem/${id}`, data)
+  }
+  
 }
