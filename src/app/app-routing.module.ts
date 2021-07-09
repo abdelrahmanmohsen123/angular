@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AddCategoryComponent } from './admin/add-category/add-category.component';
+import { AddItemComponent } from './admin/add-item/add-item.component';
 import { AddItemsComponent } from './admin/add-items/add-items.component';
 import { EditCategoryComponent } from './admin/edit-category/edit-category.component';
 import { EditItemComponent } from './admin/edit-item/edit-item.component';
@@ -24,7 +25,8 @@ const routes: Routes = [
   {path: 'category/editCats/:id', component: EditCategoryComponent},
   {path: 'category/delCats/:id', component: ShowCategoryComponent},
   // Paths items
-  {path: 'category/addItems', component: AddItemsComponent},
+  {path: 'category/addItems', component: AddItemsComponent}, //
+  {path: 'category/addItem', component: AddItemComponent}, // 
   {path: 'category/showAllItems', component: ShowItemsComponent},
   {path: 'category/showSingleItem/:id', component: ShowSingleItemComponent},
   {path: 'category/editItem/:id', component: EditItemComponent}

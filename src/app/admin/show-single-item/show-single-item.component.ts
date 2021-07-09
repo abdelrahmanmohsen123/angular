@@ -10,6 +10,7 @@ import { CategoryService } from 'src/app/services/category.service';
 export class ShowSingleItemComponent implements OnInit {
 
   singleItem: any = []
+  imageToShow: any = ''
 
   // id: String = ''
 
@@ -21,12 +22,25 @@ export class ShowSingleItemComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  // createImageFromBlob(image: Blob) {
+  //   let reader = new FileReader();
+  //   reader.addEventListener("load", () => {
+  //   this.imageToShow = reader.result
+  //   }, false);
+    
+  //   if (image) {
+  //   reader.readAsDataURL(image);
+  //   console.log(image)
+  //   }
+  //   } 
+
   getSingleItem() {
     let id = this.router.snapshot.paramMap.get('id')
     this._catService.showSingleItem(id).subscribe(
       res => {
         // this.id = res.success._id
         this.singleItem = res.success
+        // this.createImageFromBlob(this.singleItem.itemImage)
       }
     )
   }
@@ -38,4 +52,6 @@ export class ShowSingleItemComponent implements OnInit {
       }
     )
   }
+
+  
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, MinLengthValidator, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, MinLengthValidator, Validators } from '@angular/forms';
 import { Items } from 'src/app/interfaces/items';
 import { CategoryService } from 'src/app/services/category.service';
 
@@ -10,18 +10,21 @@ import { CategoryService } from 'src/app/services/category.service';
   
 })
 export class AddItemsComponent implements OnInit {
+  
   category: any = []
-  //offer: any = []
   isSubmited: Boolean = false
   msgCheck: String = ''
   result: any = {}
+  checkBox: Boolean = false
 
   size: any = [
     {sizeType: "none", val: 'none'},
     {sizeType: "large", val: 'large'},
     {sizeType: "meduim", val: 'meduim'},
     {sizeType: "small", val: 'small'}
-  ] 
+  ]
+  
+  isOffer: Boolean = false
 
   itemData = new FormGroup({ 
     cat_id: new FormControl('',[Validators.required]),
@@ -37,17 +40,15 @@ export class AddItemsComponent implements OnInit {
     DateTo: new FormControl(''),
     
     offer_item: new FormGroup({
-      is_offer: new FormControl(false),
+      is_offer: new FormControl(),
       newPrice: new FormControl('',[Validators.pattern("^[0-9]+$")]),
       desc: new FormControl('', [Validators.maxLength(200)])
-    }) 
+    })
     
-  }) 
-  constructor(private _catService: CategoryService) { 
+  })
+
+  constructor(private _catService: CategoryService, private fd: FormBuilder) { 
     this.catNames()
-    //this.offerItemsStatus()
-    
-   
   }
 
   ngOnInit(): void {
@@ -56,7 +57,8 @@ export class AddItemsComponent implements OnInit {
   uploadImage(event : any) {
     let file = event.target.files[0]
     this.itemData.get('itemImage')?.setValue(file)
-  } 
+  }
+  
 
   addItem() {
     // let itemInfo : Items = this.itemData.value
@@ -67,14 +69,14 @@ export class AddItemsComponent implements OnInit {
     itemInfo.append('DateFrom', this.itemData.get('DateFrom')?.value)
     itemInfo.append('DateTo', this.itemData.get('DateTo')?.value)
 
-    // itemInfo.append('size', this.itemData.get('sizeType')?.value)
+    itemInfo.append('size.0.sizeType', this.itemData.get('size')?.get('sizeType')?.value)
+    itemInfo.append('size.0.price', this.itemData.get('size')?.get('price')?.value)
 
-    // itemInfo.append('size[0].price', this.itemData.get('price')?.value)
+    itemInfo.append('offer_item.0.is_offer', this.itemData.get('offer_item')?.get('is_offer')?.value)
+    itemInfo.append('offer_item.0.newPrice', this.itemData.get('offer_item')?.get('newPrice')?.value)
+    itemInfo.append('offer_item.0.desc', this.itemData.get('offer_item')?.get('desc')?.value)
 
-    // console.log(this.itemData.get('size.price')?.value)
-    // itemInfo.append('sizeType', this.itemData.get('sizeType')?.value)
-    // itemInfo.append('sizeType', this.itemData.get('sizeType')?.value)
-    // itemInfo.append('sizeType', this.itemData.get('sizeType')?.value)
+
 
     itemInfo.append('itemImage', this.itemData.get('itemImage')?.value)
     this.isSubmited = true
@@ -124,7 +126,12 @@ export class AddItemsComponent implements OnInit {
     
   }
 
-  
+  offerStatus(event : any) {
+    // if(event.target.value == 'on') event.target.value = ''
+    // this.itemData.get('offer_item')?.get('is_offer')?.setValue(event.target.value)
+    this.checkBox = true
+    console.log(event.target,  this.checkBox)
+  }
 
   // changeCity(e) {
   //   this.cityName.setValue(e.target.value, {
@@ -160,21 +167,24 @@ export class AddItemsComponent implements OnInit {
     return this.itemData.get('DateTo')
   }
 
-  get sizeItem() {
-    return this.itemData.get('size')
-  }
-
   get sizeType() {
-    return this.itemData.get('sizeType')
+    return this.itemData.get('size')?.get('sizeType')
   }
 
   get price() {
-    return this.itemData.get('price')
+    return this.itemData.get('size')?.get('price')
   }
 
+  get is_offer() {
+    return this.itemData.get('offer_item')?.get('is_offer')
+  }
 
-  get offer_item() {
-    return this.itemData.get('offer_item')
+  get newPrice() {
+    return this.itemData.get('offer_item')?.get('newPrice')
+  }
+
+  get desc() {
+    return this.itemData.get('offer_item')?.get('desc')
   }
 
   get itemImage () {

@@ -47,7 +47,7 @@ export class CategoryService {
   }
 
   showSingleItem(id: any): Observable<any> {
-    return this._http.get(`${this.commonURL}showItem/${id}`)
+    return this._http.get(`${this.commonURL}showItem/${id}` ) // , { responseType: 'Blob' as 'json' }
   }
 
   editItem(id: any, data: any): Observable<any> {

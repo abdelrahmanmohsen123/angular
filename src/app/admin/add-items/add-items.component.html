@@ -3,12 +3,12 @@
         <div class="row">
             <h3 class="">Add Item</h3>
 
-            <div></div>{{msgCheck}}
+            <div>{{msgCheck}}</div>
             <form class="my-2 py-2" method="POST" [formGroup]="itemData" (ngSubmit)='addItem()' autocomplete="off" enctype="multipart/form-data">
                 <div class="mb-3">
                     <label for="cat_id" class="form-label">Category name :</label>
                     <select formControlName='cat_id' class="form-control" id="cat_id">
-                        <!-- <option selected>Select cats</option> -->
+                        <option value="" disabled>Select cats</option>
                         <option *ngFor="let cat of category" [value]="cat._id">{{cat.catName}}</option>
                     </select>
                 </div>
@@ -51,6 +51,7 @@
                         <label for="size" class="form-label">size :</label>
                         
                         <select formControlName='sizeType' class="form-control" id="size" >
+                            <option value="" disabled>Choose size</option>
                             <option  *ngFor="let s of size" [value]="s.val " (change)= "selectSize($event)">{{s.sizeType}}</option>
                         </select>
                         <div *ngIf="isSubmited || (sizeType?.invalid && (sizeType?.dirty || sizeType?.touched))">
@@ -92,11 +93,12 @@
                 </div>
 
                 <div class="mb-3" formGroupName="offer_item">
-                    <label for="Offer" class="form-label">Offer:</label>
                     <div class="mb-3 form-check">
-                        <input type="checkbox" formControlName='is_offer' class="form-check-input" id="offerStatus">
                         <label class="form-check-label" for="offerStatus">offer Status</label>
+
+                        <input type="checkbox"  formControlName="is_offer" class="form-check-input" id="offerStatus" *ngIf = "checkBox != true; else show" (change)="offerStatus($event)" />
                     </div>
+                <ng-template  #show>
                     <div class="mb-3">
                         <label for="newPrice" class="form-label">new price :</label>
                         <input type="number" formControlName='newPrice' class="form-control" id="newPrice" />
@@ -105,6 +107,8 @@
                         <label for="description" class="form-label">Description :</label>
                         <textarea formControlName='desc' class="form-control" id="description"></textarea>
                     </div>
+                </ng-template>
+                    
                 </div>
 
                 <div class="input-group mb-3">

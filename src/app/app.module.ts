@@ -23,6 +23,7 @@ import { ShowSingleItemComponent } from './admin/show-single-item/show-single-it
 import { EditCategoryComponent } from './admin/edit-category/edit-category.component';
 import { ShowSingleCatComponent } from './admin/show-single-cat/show-single-cat.component';
 import { EditItemComponent } from './admin/edit-item/edit-item.component';
+import { AddItemComponent } from './admin/add-item/add-item.component';
 // import { ActivatedRoute } from '@angular/router';
 
 
@@ -42,7 +43,8 @@ import { EditItemComponent } from './admin/edit-item/edit-item.component';
     ShowSingleItemComponent,
     EditCategoryComponent,
     ShowSingleCatComponent,
-    EditItemComponent
+    EditItemComponent,
+    AddItemComponent
   ],
   
   imports: [
