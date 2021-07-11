@@ -11,22 +11,81 @@
                         <option *ngFor="let cat of category" [value]="cat._id">{{cat.catName}}</option>
                     </select>
                 </div>
+                <div class="mb-3">
+                    <label for="itemName" class="form-label">Item Name :</label>
+                    <input type="text" formControlName='name' class="form-control" id="itemName" />
+                    <div *ngIf="isSubmited || (name?.invalid && (name?.dirty || name?.touched))">
+                        <ul>
+                            <li *ngIf="name?.errors?.required">
+                                Please fill this field
+                            </li>
+                            <li *ngIf="name?.errors?.pattern">
+                                Plese used char only
+                            </li>
+                            <li *ngIf="name?.errors?.minlength">
+                                Please write 3 or more
+                            </li>
+                            <li *ngIf="name?.errors?.maxlength">
+                                Please write 20 or less
+                            </li>
+                        </ul>
+                    </div>
+                </div>
                
-                <div class="mb-3" formGroupName="offer_item">
-                    <div class="mb-3 form-check">
+                <!-- <div class="mb-3" formGroupName="offer_item">
+                
+                    <div class="mb-3 form-check" (click)="addOfferOnItem()">
                         <input type="checkbox"  class="form-check-input" id="offerStatus" />
                         <label class="form-check-label" for="offerStatus">offer Status</label>
                     </div>
-                    <div class="mb-3">
-                        <label for="newPrice" class="form-label">new price :</label>
-                        <input type="number" formControlName='newPrice' class="form-control" id="newPrice" />
+                    <div class="mb-3 nested_offer" *ngFor="let offer of offer_item.controls; let i = index" >
+                        <div class="mb-3">
+                            <label for="newPrice" class="form-label">new price :</label>
+                            <input type="number" [formControlName]='i' class="form-control" id="newPrice" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Description :</label>
+                            <textarea formControlName='desc' class="form-control" id="description"></textarea>
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="description" class="form-label">Description :</label>
-                        <textarea formControlName='desc' class="form-control" id="description"></textarea>
-                    </div>
+                    
                    
+                </div> -->
+                
+                <div class="my-2">
+                  <button type="button" class="btn btn-primary" (click)="changeStatusOffer($event)">{{textBtn}}</button>
                 </div>
+                <span *ngIf="stausOffer; else show"></span>
+                <div class="mb-3">
+                    <ng-template #show>
+                        <div class="d-flex align-items-center my-2">
+                            <h4>Offer items</h4>
+                            <button type="button" class="btn btn-primary mx-3" (click) = "addOfferOnItem()" >Add offer</button>
+                        </div>
+    
+                        <ng-container formArrayName = "offer_item" *ngFor = "let offer of offer_item.controls; let i = index">
+                            <div class="mb-2 p-2 border" [formGroupName] = "i">
+                                <div class="d-flex align-items-center my-2">
+                                    <h5 class="mb-2">Offer {{i + 1}} </h5>
+                                    <button type="button" class="btn btn-danger mx-2" (click)="removeOffer(i)">&times;</button>
+                                </div>
+                                <!-- <div class="mb-1">
+                                    <label for="">is_offer</label>
+                                    <input type="text" class="form-control" formControlName = "is_offer" />
+                                </div> -->
+                                <div class="mb-1">
+                                    <label for="">New Price : </label>
+                                    <input type="text" class="form-control" formControlName = "newPrice" />
+                                </div>
+                                <div class="mb-1">
+                                    <label for="">Description : </label>
+                                    <input type="text" class="form-control" formControlName = "desc" />
+                                </div>
+                            </div>
+                        </ng-container>    
+                    </ng-template>
+                </div>
+                
                 <button type="submit" class="btn btn-primary">Add Item</button>
             </form>
         </div>
