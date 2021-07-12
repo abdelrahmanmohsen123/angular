@@ -10,6 +10,13 @@
                         <option value="" disabled>Select cats</option>
                         <option *ngFor="let cat of category" [value]="cat._id">{{cat.catName}}</option>
                     </select>
+                    <div *ngIf="isSubmited || (cat_id?.invalid && (cat_id?.dirty || cat_id?.touched))">
+                        <ul>
+                            <li *ngIf="cat_id?.errors?.required">
+                                Please fill this field
+                            </li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="itemName" class="form-label">Item Name :</label>
@@ -31,26 +38,75 @@
                         </ul>
                     </div>
                 </div>
-               
-                <!-- <div class="mb-3" formGroupName="offer_item">
-                
-                    <div class="mb-3 form-check" (click)="addOfferOnItem()">
-                        <input type="checkbox"  class="form-check-input" id="offerStatus" />
-                        <label class="form-check-label" for="offerStatus">offer Status</label>
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description :</label>
+                    <textarea class="form-control" formControlName = "description" id="description" cols="10" rows="5"></textarea>
+                    <div *ngIf="isSubmited || (description?.invalid && (description?.dirty || description?.touched))">
+                        <ul>
+                            <li *ngIf="description?.errors?.required">
+                                Please fill this field
+                            </li>
+                            <li *ngIf="description?.errors?.maxlength">
+                                Please write 200 or less
+                            </li>
+                        </ul>
                     </div>
-                    <div class="mb-3 nested_offer" *ngFor="let offer of offer_item.controls; let i = index" >
-                        <div class="mb-3">
-                            <label for="newPrice" class="form-label">new price :</label>
-                            <input type="number" [formControlName]='i' class="form-control" id="newPrice" />
+                </div>
+
+                <div class="input-group mb-3">
+                    <input type="file" class="form-control" id="uploadFile" (change) = "uploadImage($event)">
+                    <label class="input-group-text" for="uploadFile">Upload</label>
+                    <div *ngIf="isSubmited || (itemImage?.invalid && (itemImage?.dirty || itemImage?.touched))">
+                        <ul>
+                            <li *ngIf="itemImage?.errors?.required">
+                                Please insert any image
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-center my-2">
+                    <h4>Add size </h4>
+                    <button type="button" class="btn btn-primary mx-3" (click) = "addSizeItem()" >Add size</button>
+                </div>
+
+                <ng-container formArrayName="size" *ngFor="let s of size.controls; let i = index">
+                    <div class="d-flex align-items-center my-2">
+                        <h5 class="mb-2">Size item {{i + 1}} </h5>
+                        <button type="button" class="btn btn-danger mx-2" (click)="removeSize(i)">&times;</button>
+                    </div>
+                    <div class="row" [formGroupName] = "i">
+                        <div class="col-6">
+                            
+                            <label for="size{{i}}" class="form-label">size :</label>
+                            <select formControlName='sizeType' class="form-control" id="size{{i}}" >
+                                <option value="" disabled>Choose size</option>
+                                <option  *ngFor="let s of sizeData" [value]="s.val " (change)= "selectSize($event)">{{s.sizeType}}</option>
+                            </select>
+                            <div *ngIf="isSubmited || (size.controls[i].get('sizeType')?.invalid && (size.controls[i].get('sizeType')?.dirty || size.controls[i].get('sizeType')?.touched))">
+                                <ul>
+                                    <li *ngIf="size.controls[i].get('sizeType')?.errors?.required">
+                                        Please select any size
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="description" class="form-label">Description :</label>
-                            <textarea formControlName='desc' class="form-control" id="description"></textarea>
+                        <div class="col-6">
+                            <label for="price{{i}}" class="form-label">price :</label>
+                            <input type="text" formControlName='price' class="form-control" id="price{{i}}" />
+                            <div *ngIf="isSubmited || (size.controls[i].get('price')?.invalid && (size.controls[i].get('price')?.dirty || size.controls[i].get('price')?.touched))">
+                                <ul>
+                                    <li *ngIf="size.controls[i].get('price')?.errors?.required">
+                                        Please fill this field
+                                    </li>
+                                    <li *ngIf="size.controls[i].get('price')?.errors?.pattern">
+                                        Plese used number only
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                    
-                   
-                </div> -->
+                </ng-container>
                 
                 <div class="my-2">
                   <button type="button" class="btn btn-primary" (click)="changeStatusOffer($event)">{{textBtn}}</button>
@@ -69,17 +125,33 @@
                                     <h5 class="mb-2">Offer {{i + 1}} </h5>
                                     <button type="button" class="btn btn-danger mx-2" (click)="removeOffer(i)">&times;</button>
                                 </div>
-                                <!-- <div class="mb-1">
-                                    <label for="">is_offer</label>
-                                    <input type="text" class="form-control" formControlName = "is_offer" />
-                                </div> -->
                                 <div class="mb-1">
-                                    <label for="">New Price : </label>
-                                    <input type="text" class="form-control" formControlName = "newPrice" />
+                                    <label for="price{{i}}">New Price : </label>
+                                    <input type="text" class="form-control" formControlName = "newPrice" id="price{{i}}" />
+                                    <div *ngIf="isSubmited || (offer_item.controls[i].get('newPrice')?.invalid && (offer_item.controls[i].get('newPrice')?.dirty || offer_item.controls[i].get('newPrice')?.touched))">
+                                        <ul>
+                                            <!-- <li *ngIf="offer_item.controls[i].get('newPrice')?.errors?.required">
+                                                Please fill this field
+                                            </li> -->
+                                            <li *ngIf="offer_item.controls[i].get('newPrice')?.errors?.pattern">
+                                                Plese used number only
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
                                 <div class="mb-1">
-                                    <label for="">Description : </label>
-                                    <input type="text" class="form-control" formControlName = "desc" />
+                                    <label for="desc{{i}}">Description : </label>
+                                    <textarea class="form-control" formControlName = "desc" id="desc{{i}}" cols="10" rows="5"></textarea>
+                                    <div *ngIf="isSubmited || (offer_item.controls[i].get('desc')?.invalid && (offer_item.controls[i].get('desc')?.dirty || offer_item.controls[i].get('desc')?.touched))">
+                                        <ul>
+                                            <!-- <li *ngIf="offer_item.controls[i].get('desc')?.errors?.required">
+                                                Please fill this field
+                                            </li> -->
+                                            <li *ngIf="offer_item.controls[i].get('desc')?.errors?.maxlength">
+                                                Please write 200 or less
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </ng-container>    

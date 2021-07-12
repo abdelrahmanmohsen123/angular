@@ -13,7 +13,6 @@ export interface Items {
     DateTo: Date
     offer_item:[
         {
-            is_offer: Boolean
             newPrice: Number
             desc: String
         }

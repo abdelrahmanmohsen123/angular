@@ -7,6 +7,7 @@ import { CategoryService } from 'src/app/services/category.service';
   templateUrl: './add-item.component.html',
   styleUrls: ['./add-item.component.css']
 })
+
 export class AddItemComponent implements OnInit {
 
   category: any = []
@@ -16,6 +17,13 @@ export class AddItemComponent implements OnInit {
   msgCheck: String = ''
   result: any = {}
 
+  sizeData: any = [
+    {sizeType: "none", val: 'none'},
+    {sizeType: "large", val: 'large'},
+    {sizeType: "meduim", val: 'meduim'},
+    {sizeType: "small", val: 'small'}
+  ]
+
   constructor(private _catService: CategoryService, private fb: FormBuilder) {
     this.catNames()
   }
@@ -23,6 +31,11 @@ export class AddItemComponent implements OnInit {
   itemData : FormGroup = this.fb.group({
     cat_id: ['',[Validators.required]],
     name: ['',[Validators.required , Validators.minLength(3) , Validators.maxLength(20), Validators.pattern("^[a-zA-Z ]*")]],
+    description: ['', [Validators.required, Validators.maxLength(200)]],
+    itemImage: ['', [Validators.required]],
+    size: this.fb.array([
+      this.storeSize()
+    ]),
     offer_item: this.fb.array([
       this.storeOffers()
     ])
@@ -30,10 +43,32 @@ export class AddItemComponent implements OnInit {
 
   storeOffers() {
     return this.fb.group({
-      is_offer: [false],
-      newPrice: ['', Validators.pattern("^[0-9]+$")],
-      desc: ['', Validators.maxLength(200)]
+      // newPrice: ['', [Validators.required, Validators.pattern("^[0-9]+$")]],
+      // desc: ['', [Validators.required, Validators.maxLength(200)]]
+      newPrice: ['', [Validators.pattern("^[0-9]+$")]],
+      desc: ['', [Validators.maxLength(200)]]
     }) 
+  }
+
+  addOfferOnItem() {
+    this.offer_item.push(this.storeOffers())
+  }
+
+  selectSize(event : any) {
+    this.sizeData.setValue(event.target.value, {
+      onlySelf: true,
+    })
+  }
+
+  storeSize() {
+    return this.fb.group ({
+      sizeType: ['', [Validators.required]],
+      price: ['', [Validators.required, Validators.pattern("^[0-9]+$")]]
+    })
+  }
+
+  addSizeItem() {
+    this.size.push(this.storeSize())
   }
 
   ngOnInit(): void {}
@@ -44,10 +79,14 @@ export class AddItemComponent implements OnInit {
     })
   }
 
-  addOfferOnItem() {
-    this.offer_item.push(this.storeOffers())
+  uploadImage(event : any) {
+    let file = event.target.files[0]
+    this.itemData.get('itemImage')?.setValue(file)
+    console.log(this.itemData.get('itemImage')?.setValue(file)) // undefined
+    console.log(file)
   }
 
+  
   changeStatusOffer(even : any) {
     this.stausOffer = !this.stausOffer
     even.target.textContent == 'Show Offer' ? 
@@ -59,18 +98,38 @@ export class AddItemComponent implements OnInit {
     this.offer_item.removeAt(i)
   }
 
+  removeSize(i : Required<number>) {
+    this.size.removeAt(i)
+  }
+
   addItem() {
     // this.itemData.value
     this.isSubmited = true
     let itemInfo = new FormData()
+    let valSize: any = this.itemData.get('size')?.value as FormArray
     let vals: any = this.itemData.get('offer_item')?.value as FormArray
 
     itemInfo.append('cat_id', this.itemData.get('cat_id')?.value)
     itemInfo.append('name', this.itemData.get('name')?.value)
+    itemInfo.append('description', this.itemData.get('description')?.value)
 
-    vals.forEach((ele: any, i : Number) => {
+    itemInfo.append('itemImage', this.itemData.get('itemImage')?.value)
+
+    
+      vals.forEach((ele: any, i : Number) => {
+        if(ele.newPrice != '' && ele.desc != '') {
+          
+          for (let j in ele) {
+            itemInfo.append(`offer_item.${i}.${j}`, ele[j])
+          }
+        }
+      })
+   
+    
+
+    valSize.forEach((ele: any, i : Number) => {
       for (let j in ele) {
-        itemInfo.append(`offer_item.${i}.${j}`, ele[j])
+        itemInfo.append(`size.${i}.${j}`, ele[j])
       }
     })
 
@@ -102,7 +161,23 @@ export class AddItemComponent implements OnInit {
     return this.itemData.get('name')
   }
 
-  get offer_item() {
+  get description() {
+    return this.itemData.get('description')
+  }
+
+  get itemImage () {
+    return this.itemData.get('itemImage')
+  }
+
+  get size() : FormArray {
+    return this.itemData.get('size') as FormArray
+  }
+
+  // get newPrice() {
+  //   return this.itemData.get('offer_item')?.get('newPrice')
+  // }
+
+  get offer_item() : FormArray {
     return this.itemData.get('offer_item') as FormArray
   }
 

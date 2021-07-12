@@ -57,6 +57,8 @@ export class AddItemsComponent implements OnInit {
   uploadImage(event : any) {
     let file = event.target.files[0]
     this.itemData.get('itemImage')?.setValue(file)
+    console.log(this.itemData.get('itemImage')?.setValue(file)) // undefined
+    console.log(file)
   }
   
 
