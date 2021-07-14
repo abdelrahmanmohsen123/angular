@@ -14,6 +14,7 @@ export class AddItemComponent implements OnInit {
   isSubmited: Boolean = false
   stausOffer: Boolean = true
   textBtn : String = `Show Offer`
+  
   msgCheck: String = ''
   result: any = {}
 
@@ -32,22 +33,23 @@ export class AddItemComponent implements OnInit {
     cat_id: ['',[Validators.required]],
     name: ['',[Validators.required , Validators.minLength(3) , Validators.maxLength(20), Validators.pattern("^[a-zA-Z ]*")]],
     description: ['', [Validators.required, Validators.maxLength(200)]],
+    dateRange: ['', [Validators.required]],
     itemImage: ['', [Validators.required]],
     size: this.fb.array([
       this.storeSize()
     ]),
     offer_item: this.fb.array([
-      this.storeOffers()
+      // this.storeOffers()
     ])
   })
 
   storeOffers() {
     return this.fb.group({
-      // newPrice: ['', [Validators.required, Validators.pattern("^[0-9]+$")]],
-      // desc: ['', [Validators.required, Validators.maxLength(200)]]
-      newPrice: ['', [Validators.pattern("^[0-9]+$")]],
-      desc: ['', [Validators.maxLength(200)]]
-    }) 
+      newPrice: ['', [Validators.required, Validators.pattern("^[0-9]+$")]],
+      desc: ['', [Validators.required, Validators.maxLength(200)]]
+      // newPrice: ['', [Validators.pattern("^[0-9]+$")]],
+      // desc: ['', [Validators.maxLength(200)]]
+    })
   }
 
   addOfferOnItem() {
@@ -82,16 +84,16 @@ export class AddItemComponent implements OnInit {
   uploadImage(event : any) {
     let file = event.target.files[0]
     this.itemData.get('itemImage')?.setValue(file)
-    console.log(this.itemData.get('itemImage')?.setValue(file)) // undefined
-    console.log(file)
+    // console.log(this.itemData.get('itemImage')?.value.name.setValue(null)) // undefined
+    console.log(file.name)
   }
 
   
   changeStatusOffer(even : any) {
     this.stausOffer = !this.stausOffer
-    even.target.textContent == 'Show Offer' ? 
-      even.target.textContent = 'Hidden Offer' : 
-      even.target.textContent = 'Show Offer'
+    even.target.textContent == this.textBtn ? 
+    even.target.textContent = 'Hidden Offer' : 
+    even.target.textContent = this.textBtn
   }
 
   removeOffer(i : Required<number>) {
@@ -100,6 +102,11 @@ export class AddItemComponent implements OnInit {
 
   removeSize(i : Required<number>) {
     this.size.removeAt(i)
+  }
+
+  reset() {
+    this.itemData.get('itemImage')?.value.name.setValue(null)
+    
   }
 
   addItem() {
@@ -112,17 +119,18 @@ export class AddItemComponent implements OnInit {
     itemInfo.append('cat_id', this.itemData.get('cat_id')?.value)
     itemInfo.append('name', this.itemData.get('name')?.value)
     itemInfo.append('description', this.itemData.get('description')?.value)
+    itemInfo.append('dateRange', this.itemData.get('dateRange')?.value)
 
     itemInfo.append('itemImage', this.itemData.get('itemImage')?.value)
 
     
       vals.forEach((ele: any, i : Number) => {
-        if(ele.newPrice != '' && ele.desc != '') {
+        // if(ele.newPrice != '' && ele.desc != '') {
           
           for (let j in ele) {
             itemInfo.append(`offer_item.${i}.${j}`, ele[j])
           }
-        }
+        // }
       })
    
     
@@ -142,6 +150,7 @@ export class AddItemComponent implements OnInit {
         () => {
           if(this.result?.itemData != "") { 
             this.msgCheck= "done"
+            this.itemData.get('itemImage')?.setValue(null)
             this.itemData.reset()
             this.isSubmited = false 
             
@@ -163,6 +172,10 @@ export class AddItemComponent implements OnInit {
 
   get description() {
     return this.itemData.get('description')
+  }
+
+  get dateRange () {
+    return this.itemData.get('dateRange')
   }
 
   get itemImage () {

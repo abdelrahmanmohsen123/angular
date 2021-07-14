@@ -24,10 +24,15 @@ import { EditCategoryComponent } from './admin/edit-category/edit-category.compo
 import { ShowSingleCatComponent } from './admin/show-single-cat/show-single-cat.component';
 import { EditItemComponent } from './admin/edit-item/edit-item.component';
 import { AddItemComponent } from './admin/add-item/add-item.component';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+
 // import { ActivatedRoute } from '@angular/router';
 
 
-@NgModule({
+@NgModule({ 
   declarations: [
     AppComponent,
     RegisterComponent,
@@ -44,12 +49,14 @@ import { AddItemComponent } from './admin/add-item/add-item.component';
     EditCategoryComponent,
     ShowSingleCatComponent,
     EditItemComponent,
-    AddItemComponent
+    AddItemComponent,
   ],
-  
   imports: [
     BrowserModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
+    BsDatepickerModule.forRoot(),
+    TabsModule.forRoot(),
     ReactiveFormsModule,
     HttpClientModule,
     FormsModule,
