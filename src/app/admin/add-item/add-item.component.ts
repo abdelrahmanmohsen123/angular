@@ -14,6 +14,9 @@ export class AddItemComponent implements OnInit {
   isSubmited: Boolean = false
   stausOffer: Boolean = true
   textBtn : String = `Show Offer`
+
+  descriptionStatus: Boolean = true
+  textBtnDesc: String = `Add Description`
   
   msgCheck: String = ''
   result: any = {}
@@ -33,7 +36,7 @@ export class AddItemComponent implements OnInit {
     cat_id: ['',[Validators.required]],
     name: ['',[Validators.required , Validators.minLength(3) , Validators.maxLength(20), Validators.pattern("^[a-zA-Z ]*")]],
     description: ['', [Validators.required, Validators.maxLength(200)]],
-    dateRange: ['', [Validators.required]],
+    dateRange: [''],
     itemImage: ['', [Validators.required]],
     size: this.fb.array([
       this.storeSize()
@@ -46,7 +49,8 @@ export class AddItemComponent implements OnInit {
   storeOffers() {
     return this.fb.group({
       newPrice: ['', [Validators.required, Validators.pattern("^[0-9]+$")]],
-      desc: ['', [Validators.required, Validators.maxLength(200)]]
+      desc: ['', [Validators.required, Validators.maxLength(200)]],
+      dateRangeOffer: ['', [Validators.required]]
       // newPrice: ['', [Validators.pattern("^[0-9]+$")]],
       // desc: ['', [Validators.maxLength(200)]]
     })
@@ -71,6 +75,14 @@ export class AddItemComponent implements OnInit {
 
   addSizeItem() {
     this.size.push(this.storeSize())
+  }
+
+  addDescription(even: any) {
+    console.log(this.description)
+    this.descriptionStatus = !this.descriptionStatus
+    even.target.textContent == this.textBtnDesc ? 
+    even.target.textContent = 'Hidden Description' : 
+    even.target.textContent = this.textBtnDesc
   }
 
   ngOnInit(): void {}

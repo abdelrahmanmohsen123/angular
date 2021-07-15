@@ -3,13 +3,16 @@
         <div class="row ">
             <h3 class="">Add Item</h3>
             <div>{{msgCheck}}</div>
-            <form class="my-2 py-2" method="POST" [formGroup]="itemData" (ngSubmit)='addItem()' autocomplete="off" enctype="multipart/form-data" >
+            <form class="my-2 py-2" method="POST" [formGroup]="itemData" (ngSubmit)='addItem()' autocomplete="off" >
                 <!-- Category Names -->
                 <div class="mb-3">
                     <label for="cat_id" class="form-label">Category name :</label>
                     <select formControlName='cat_id' class="form-control" id="cat_id">
                         <option value="" disabled>Select cats</option>
-                        <option *ngFor="let cat of category" [value]="cat._id">{{cat.catName}}</option>
+                        <option *ngFor="let cat of category" [value]="cat._id">
+                            {{cat.catName}}
+                        </option>
+                        
                     </select>
                     <div *ngIf="isSubmited || (cat_id?.invalid && (cat_id?.dirty || cat_id?.touched))">
                         <ul>
@@ -43,20 +46,30 @@
                 </div>
 
                 <!-- Description Item // used offers -->
-                <div class="mb-3">
-                    <label for="description" class="form-label">Description :</label>
-                    <textarea class="form-control" formControlName = "description" id="description" cols="10" rows="5"></textarea>
-                    <div *ngIf="isSubmited || (description?.invalid && (description?.dirty || description?.touched))">
-                        <ul>
-                            <li *ngIf="description?.errors?.required">
-                                Please fill this field
-                            </li>
-                            <li *ngIf="description?.errors?.maxlength">
-                                Please write 200 or less
-                            </li>
-                        </ul>
-                    </div>
+                <!-- <div class="my-2">
+                    <button type="button" class="btn btn-primary" (click)="addDescription($event)">{{textBtnDesc}}</button>
                 </div>
+                  
+                  
+                <span *ngIf="descriptionStatus; else sh"></span> -->
+                
+                <!-- <ng-template #sh> -->
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description :</label>
+                        <textarea class="form-control" formControlName = "description" id="description" cols="10" rows="5"></textarea>
+                        <div *ngIf="isSubmited || (description?.invalid && (description?.dirty || description?.touched))">
+                            <ul>
+                                <li *ngIf="description?.errors?.required">
+                                    Please fill this field
+                                </li>
+                                <li *ngIf="description?.errors?.maxlength">
+                                    Please write 200 or less
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                <!-- </ng-template> -->
+                
 
                 <!-- Image item // used addition // used offers -->
                 <div class="input-group mb-3">
@@ -119,7 +132,11 @@
                 <div class="my-2">
                   <button type="button" class="btn btn-primary" (click)="changeStatusOffer($event)">{{textBtn}}</button>
                 </div>
+                
+                
                 <span *ngIf="stausOffer; else show"></span>
+                
+                
                 <div class="mb-3">
                     <ng-template #show>
                         <div class="d-flex align-items-center my-2">
@@ -156,6 +173,22 @@
                                             </li>
                                             <li *ngIf="offer_item.controls[i].get('desc')?.errors?.maxlength">
                                                 Please write 200 or less
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="mb-1">
+                                    <label for="Daterange{{i}}">Daterange offer : </label>
+                                    <input type="text"
+                                        placeholder="Date Range Offer"
+                                        formControlName="dateRangeOffer"
+                                        class="form-control"
+                                        bsDaterangepicker
+                                        [bsConfig]="{ isAnimated: true }" id ="Daterange{{i}}" />
+                                    <div *ngIf="isSubmited || (offer_item.controls[i].get('dateRangeOffer')?.invalid && (offer_item.controls[i].get('dateRangeOffer')?.dirty || offer_item.controls[i].get('dateRangeOffer')?.touched))">
+                                        <ul>
+                                            <li *ngIf="offer_item.controls[i].get('dateRangeOffer')?.errors?.required">
+                                                Please fill this field
                                             </li>
                                         </ul>
                                     </div>
