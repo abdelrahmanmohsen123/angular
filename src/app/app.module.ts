@@ -32,7 +32,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 // import { ActivatedRoute } from '@angular/router';
 
 
-@NgModule({ 
+@NgModule({
   declarations: [
     AppComponent,
     RegisterComponent,
@@ -63,10 +63,10 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
   ],
 
   providers: [
-    { 
+    {
       provide: HTTP_INTERCEPTORS,
       useClass: UserInterceptor,
-      multi:true
+      multi: true
     },
     UsersService,
     CategoryService

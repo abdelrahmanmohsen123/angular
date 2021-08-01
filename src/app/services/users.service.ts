@@ -8,18 +8,22 @@ import { Form } from '@angular/forms';
   providedIn: 'root'
 })
 export class UsersService {
+  public status = false
   private commonURL = `http://localhost:3000/user/`
-  constructor(private _http: HttpClient) {}
+  constructor(private _http: HttpClient) { }
 
-  userRegister ( formData:FormData):Observable<any> {
-    return this._http.post(`${this.commonURL}register`, formData)   
+  userRegister(formData: FormData): Observable<any> {
+    return this._http.post(`${this.commonURL}register`, formData)
   }
 
-  userLogin (userData: Users):Observable<any> {
+  userLogin(userData: Users): Observable<any> {
     return this._http.post(`${this.commonURL}login`, userData)
   }
 
-  upLoaded() { 
+  userLogOut(): Observable<any> {
+    return this._http.post(`${this.commonURL}logout`, null)
+  }
+  upLoaded() {
 
   }
 

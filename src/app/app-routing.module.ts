@@ -14,22 +14,22 @@ import { LoginComponent } from './users/login/login.component';
 import { RegisterComponent } from './users/register/register.component';
 
 const routes: Routes = [
-  {path: '', component: HomeComponent},
+  { path: '', component: HomeComponent },
   // Paths users
-  {path: 'users/login', component: LoginComponent},
-  {path: 'users/register', component: RegisterComponent},
+  { path: 'users/login', component: LoginComponent },
+  { path: 'users/register', component: RegisterComponent },
   // Paths category
-  {path: 'category/addCat', component: AddCategoryComponent},
-  {path: 'category/displayCats', component: ShowCategoryComponent},
-  {path: 'category/displaySingleCat/:id', component: ShowSingleCatComponent},
-  {path: 'category/editCats/:id', component: EditCategoryComponent},
-  {path: 'category/delCats/:id', component: ShowCategoryComponent},
+  { path: 'category/addCat', component: AddCategoryComponent },
+  { path: 'category/displayCats', component: ShowCategoryComponent },
+  { path: 'category/displaySingleCat/:id', component: ShowSingleCatComponent },
+  { path: 'category/editCats/:id', component: EditCategoryComponent },
+  { path: 'category/delCats/:id', component: ShowCategoryComponent },
   // Paths items
-  {path: 'category/addItems', component: AddItemsComponent}, //
-  {path: 'category/addItem', component: AddItemComponent}, // 
-  {path: 'category/showAllItems', component: ShowItemsComponent},
-  {path: 'category/showSingleItem/:id', component: ShowSingleItemComponent},
-  {path: 'category/editItem/:id', component: EditItemComponent}
+  { path: 'category/addItems', component: AddItemsComponent }, //
+  { path: 'category/addItem', component: AddItemComponent }, // 
+  { path: 'category/showAllItems', component: ShowItemsComponent },
+  { path: 'category/showSingleItem/:id', component: ShowSingleItemComponent },
+  { path: 'category/editItem/:id', component: EditItemComponent }
 ];
 
 @NgModule({
