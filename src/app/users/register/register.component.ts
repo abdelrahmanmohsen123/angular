@@ -14,8 +14,9 @@ export class RegisterComponent implements OnInit {
 
   // Variables
   result: any  = {} // = {} ? = []?! // to inserted data as object
-  msgCheck: String = ''
+  msgCheck: any = null
   isSubmited: boolean = false
+  flag: boolean = false
   // file: File = null
 
   userData = new FormGroup({ 
@@ -41,7 +42,7 @@ export class RegisterComponent implements OnInit {
 
   
   uploadImage(event:any){
-    let file = event.target.files[0]
+    let file = event.target.files[0] 
     this.userData.get('userImage')?.setValue(file)
   }
 
@@ -61,28 +62,21 @@ export class RegisterComponent implements OnInit {
     if (this.userData.valid) {
       
       this._userService.userRegister(formData).subscribe(
-        res => {
-          this.result = res
-        },
+        res => { this.result = res },
     
-        () => {
-          this.msgCheck = `Error`
-          
+        (e) => { 
+          this.flag = false
+          this.msgCheck = e.error.message 
         },
 
         () => {
-          if(this.result?.userData != "") { 
-            this.msgCheck= "done"
+          if(this.result?.success != "") { 
+            this.flag = true
+            this.msgCheck = this.result.message
             this.userData.reset()
             this.isSubmited = false 
             this._router.navigate(['/users/login'])
           } 
-
-          else {
-            this.msgCheck = "error" 
-            
-          }
-        
         }
     
       )
@@ -108,9 +102,4 @@ export class RegisterComponent implements OnInit {
   get phone() {
     return this.userData.get('phone')
   }
-
-  
-
-
-
 }

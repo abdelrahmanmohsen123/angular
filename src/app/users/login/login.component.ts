@@ -12,14 +12,14 @@ import { UsersService } from 'src/app/services/users.service';
 export class LoginComponent implements OnInit {
   // Variables
   result: any  = {}
-  msgCheck: String = ''
+  msgCheck: any = null
   // loginRes:any = null
   isSubmited: boolean = false
+  flag: boolean = false
 
   userData = new FormGroup({ 
-    
-    email:new FormControl('', [Validators.required, Validators.email]), 
-    password:new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(20)]),
+    email: new FormControl('', [Validators.required, Validators.email]), 
+    password: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(20)]),
   
   })
 
@@ -32,27 +32,26 @@ export class LoginComponent implements OnInit {
     this.isSubmited = true
     if (this.userData.valid) {
       this._userService.userLogin(userInfo).subscribe(
-        res => {
-          this.result = res
-        },
+        res => { this.result = res },
     
-        (err) => {
-          this.msgCheck = `Error`
-          this.result = err
-          console.log(err.error.err)
+        (e) => { 
+          this.flag = false
+          this.msgCheck = e.error.message 
         },
 
         () => {
 
-          if(this.result.error) this.msgCheck = `error login`
-          else{
-            this.msgCheck= "done"
+          // if (this.result.error) this.msgCheck = `error login`
+          if (this.result?.success != "") {
+            this.flag = true
+            this.msgCheck = this.result.message
             this.userData.reset()
             this.isSubmited = false 
-            let token = this.result.userData.token
+
+            let token = this.result.success.token
             localStorage.setItem('token', token)
 
-            let typeUser = this.result.userData.user.userType
+            let typeUser = this.result.success.user.userType
             
             typeUser == 'user' ? 
               this._router.navigate(['/']): 
@@ -73,8 +72,4 @@ export class LoginComponent implements OnInit {
     return this.userData.get('email')
   }
   
-
-
-
-
 }

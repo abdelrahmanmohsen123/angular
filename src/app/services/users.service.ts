@@ -19,7 +19,7 @@ export class UsersService {
     return this._http.post(`${this.commonURL}login`, userData)
   }
 
-  upLoaded() {
+  upLoaded() { 
 
   }
 

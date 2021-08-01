@@ -39,7 +39,7 @@ export class ShowCategoryComponent implements OnInit {
       },
       () =>{},
       () =>{
-        this._router.navigate(['/category/addCat'])
+        this._router.navigate(['/category/displayCats'])
       }
       )
    }
