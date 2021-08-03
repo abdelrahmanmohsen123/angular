@@ -28,6 +28,10 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { SidebarComponent } from './admin/shares/sidebar/sidebar.component';
+import { ShowAllUsersComponent } from './admin/show-all-users/show-all-users.component';
+import { ShowSingleUserComponent } from './admin/show-single-user/show-single-user.component';
+import { EditUserComponent } from './admin/edit-user/edit-user.component';
 
 // import { ActivatedRoute } from '@angular/router';
 
@@ -50,6 +54,10 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     ShowSingleCatComponent,
     EditItemComponent,
     AddItemComponent,
+    SidebarComponent,
+    ShowAllUsersComponent,
+    ShowSingleUserComponent,
+    EditUserComponent,
   ],
   imports: [
     BrowserModule,

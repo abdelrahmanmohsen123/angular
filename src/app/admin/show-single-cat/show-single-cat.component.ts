@@ -12,14 +12,15 @@ export class ShowSingleCatComponent implements OnInit {
   cat: any = ''
   id = this.router.snapshot.paramMap.get('id')
 
+
   constructor(public _catService: CategoryService, private router: ActivatedRoute) {
     this.getAllItems()
   }
-  
+
   ngOnInit(): void {
   }
 
-  getAllItems(){
+  getAllItems() {
     this._catService.displaySingleCat(this.id).subscribe(res => {
       this.allItems = res.itemData
       this.cat = res.success
@@ -28,5 +29,5 @@ export class ShowSingleCatComponent implements OnInit {
     })
   }
 
-  
+
 }

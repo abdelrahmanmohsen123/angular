@@ -9,25 +9,29 @@ import { UsersService } from 'src/app/services/users.service';
 })
 export class NavbarComponent implements OnInit {
 
-  result: any = {}
-  status: boolean = false
+
   constructor(public _userService: UsersService, private _router: Router) { }
 
   ngOnInit(): void {
   }
 
-  logOut() {
-    this._userService.userLogOut().subscribe(res => {
-      this.result = res
-    },
-      () => {
-
-      },
+  logout() {
+    this._userService.userLogout().subscribe(res => { },
+      () => { },
       () => {
         localStorage.removeItem('token')
-        // localStorage.setItem('status', '0')
         this._userService.status = true
         this._router.navigate(['/'])
       })
   }
+  logoutAll() {
+    this._userService.userLogoutAll().subscribe(res => { },
+      () => { },
+      () => {
+        localStorage.removeItem('token')
+        this._userService.status = true
+        this._router.navigate(['/'])
+      })
+  }
+
 }

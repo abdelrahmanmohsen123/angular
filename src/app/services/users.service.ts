@@ -8,7 +8,7 @@ import { Form } from '@angular/forms';
   providedIn: 'root'
 })
 export class UsersService {
-  public status = false
+  public status: boolean = false
   private commonURL = `http://localhost:3000/user/`
   constructor(private _http: HttpClient) { }
 
@@ -20,8 +20,25 @@ export class UsersService {
     return this._http.post(`${this.commonURL}login`, userData)
   }
 
-  userLogOut(): Observable<any> {
+  userLogout(): Observable<any> {
     return this._http.post(`${this.commonURL}logout`, null)
+  }
+
+  userLogoutAll(): Observable<any> {
+    return this._http.post(`${this.commonURL}logoutAll`, null)
+  }
+
+
+  showAllUsers(): Observable<any> {
+    return this._http.post(`${this.commonURL}all`, null)
+  }
+
+  showSingleUser(id: any): Observable<any> {
+    return this._http.get(`${this.commonURL}single/${id}`)
+  }
+
+  editUser(id: any, data: any): Observable<any> {
+    return this._http.patch(`${this.commonURL}edit/${id}`, data)
   }
   upLoaded() {
 

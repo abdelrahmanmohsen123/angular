@@ -31,7 +31,8 @@
                     <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
                 </li>
             </ul>
-            <ng-template *ngIf="_userService.status==false">
+            <span *ngIf="_userService.status==false; then showLogout else showLogin"></span>
+            <ng-template #showLogin>
                 <div class="nav-item">
                     <a class="nav-link" routerLink="/users/login">Login</a>
                 </div>
@@ -39,9 +40,11 @@
                     <a class="nav-link" routerLink="/users/register">Register</a>
                 </div>
             </ng-template>
-            <div class="nav-item">
-                <a class="nav-link" (click)="logOut()">Logout</a>
-            </div>
+            <ng-template #showLogout>
+                <div class="nav-item">
+                    <a class="nav-link" (click)="logout()">Logout</a>
+                </div>
+            </ng-template>
         </div>
     </div>
 </nav>

@@ -5,10 +5,13 @@ import { AddItemComponent } from './admin/add-item/add-item.component';
 import { AddItemsComponent } from './admin/add-items/add-items.component';
 import { EditCategoryComponent } from './admin/edit-category/edit-category.component';
 import { EditItemComponent } from './admin/edit-item/edit-item.component';
+import { EditUserComponent } from './admin/edit-user/edit-user.component';
+import { ShowAllUsersComponent } from './admin/show-all-users/show-all-users.component';
 import { ShowCategoryComponent } from './admin/show-category/show-category.component';
 import { ShowItemsComponent } from './admin/show-items/show-items.component';
 import { ShowSingleCatComponent } from './admin/show-single-cat/show-single-cat.component';
 import { ShowSingleItemComponent } from './admin/show-single-item/show-single-item.component';
+import { ShowSingleUserComponent } from './admin/show-single-user/show-single-user.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './users/login/login.component';
 import { RegisterComponent } from './users/register/register.component';
@@ -29,7 +32,11 @@ const routes: Routes = [
   { path: 'category/addItem', component: AddItemComponent }, // 
   { path: 'category/showAllItems', component: ShowItemsComponent },
   { path: 'category/showSingleItem/:id', component: ShowSingleItemComponent },
-  { path: 'category/editItem/:id', component: EditItemComponent }
+  { path: 'category/editItem/:id', component: EditItemComponent },
+  //path admin
+  { path: 'showallusers', component: ShowAllUsersComponent },
+  { path: 'showsingleuser/:id', component: ShowSingleUserComponent },
+  { path: 'edituser/:id', component: EditUserComponent }
 ];
 
 @NgModule({

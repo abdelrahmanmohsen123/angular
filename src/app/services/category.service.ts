@@ -9,7 +9,7 @@ import { Items } from '../interfaces/items';
 })
 export class CategoryService {
 
-  public globalVar: any  = []
+  public globalVar: any = []
 
   constructor(private _http: HttpClient) { }
 
@@ -47,11 +47,11 @@ export class CategoryService {
   }
 
   showSingleItem(id: any): Observable<any> {
-    return this._http.get(`${this.commonURL}showItem/${id}` ) // , { responseType: 'Blob' as 'json' }
+    return this._http.get(`${this.commonURL}showItem/${id}`) // , { responseType: 'Blob' as 'json' }
   }
 
   editItem(id: any, data: any): Observable<any> {
     return this._http.patch(`${this.commonURL}editItem/${id}`, data)
   }
-  
+
 }
